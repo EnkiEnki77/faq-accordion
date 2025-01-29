@@ -7,6 +7,7 @@
   --Light-pink: hsl(275, 100%, 97%);
   --Pale-purple: hsl(292, 16%, 49%);
   --Dark-purple: hsl(292, 42%, 14%);
+  --Pink: #ad28eb;
   --Display: 700 3.5rem "Work Sans", serif;
   --Display-Mobile: 700 2rem "Work Sans", serif;
   --Title: 600 1.125rem "Work Sans", serif;
@@ -104,6 +105,12 @@ h1 {
   padding-block: 1.5em;
   border-bottom: 1px solid var(--Light-pink);
   overflow: hidden;
+  cursor: pointer;
+}
+
+.faq-question-cont:hover,
+.faq-question-cont:focus {
+  color: var(--Pink);
 }
 
 li:last-child .faq-question-cont {
@@ -118,10 +125,14 @@ li:last-child .faq-question-cont {
   height: 0;
   /* There's an attribute added to the shadow dom details element called content visibility when its in open state we have
      to also transition this otherwise the closing animation wont work. */
-  transition: block-size 1s, content-visibility 1s;
+  transition: height 1s, content-visibility 1s;
   /* Transitions on properties such as display and content-visibility are considered "Discreet" meaning they wont actually
      happen essentially. This declaration enables them. */
   transition-behavior: allow-discrete;
+}
+
+.faq-question-cont[open]:hover {
+  color: var(--Dark-purple);
 }
 
 .faq-question-cont[open]::details-content {
