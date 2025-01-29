@@ -14,6 +14,7 @@
   --Body: 400 1rem/1.5 "Work Sans", serif;
   --Body-mobile: 400 0.875rem/1.5 "Work Sans", serif;
   height: 100%;
+  /* Allows transitions between a unit value and a keyword value such as auto */
   interpolate-size: allow-keywords;
 }
 
@@ -79,6 +80,8 @@ h1 {
   border-radius: 0.5em;
   background-color: white;
   min-width: 327px;
+  width: 100%;
+  max-width: 600px;
 }
 
 .card-title {
@@ -100,6 +103,7 @@ h1 {
 .faq-question-cont {
   padding-block: 1.5em;
   border-bottom: 1px solid var(--Light-pink);
+  overflow: hidden;
 }
 
 li:last-child .faq-question-cont {
@@ -111,7 +115,17 @@ li:last-child .faq-question-cont {
     So you wont see it in the dev tools unless you have "Show user agent shadow DOM" enabled in the dev tool settings.
     Selecting this element now allows you to animate the details elements open/close state. */
 .faq-question-cont::details-content {
-  /* background-color: red; */
+  height: 0;
+  /* There's an attribute added to the shadow dom details element called content visibility when its in open state we have
+     to also transition this otherwise the closing animation wont work. */
+  transition: block-size 1s, content-visibility 1s;
+  /* Transitions on properties such as display and content-visibility are considered "Discreet" meaning they wont actually
+     happen essentially. This declaration enables them. */
+  transition-behavior: allow-discrete;
+}
+
+.faq-question-cont[open]::details-content {
+  height: auto;
 }
 
 .faq-question {
@@ -137,5 +151,5 @@ li:last-child .faq-question-cont {
 
 .faq-answer {
   padding-top: 1.5em;
-  padding-right: 1em;
+  padding-right: 1.5em;
 }
